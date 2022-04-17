@@ -1,25 +1,31 @@
+//1
+int bitXor(int, int);
+int test_bitXor(int, int);
+int tmin();
+int test_tmin();
 //2
-long copyLSB(long);
-long test_copyLSB(long);
-long dividePower2(long, long);
-long test_dividePower2(long, long);
-long distinctNegation(long);
-long test_distinctNegation(long);
-long anyEvenBit(long);
-long test_anyEvenBit(long);
+int isTmax(int);
+int test_isTmax(int);
+int allOddBits();
+int test_allOddBits();
+int negate(int);
+int test_negate(int);
 //3
-long isLessOrEqual(long, long);
-long test_isLessOrEqual(long, long);
-long replaceByte(long, long, long);
-long test_replaceByte(long, long, long);
-long conditional(long, long, long);
-long test_conditional(long, long, long);
-long bitMask(long, long);
-long test_bitMask(long, long);
+int isAsciiDigit(int);
+int test_isAsciiDigit(int);
+int conditional(int, int, int);
+int test_conditional(int, int, int);
+int isLessOrEqual(int, int);
+int test_isLessOrEqual(int, int);
 //4
-long isPalindrome(long);
-long test_isPalindrome(long);
-long trueFiveEighths(long);
-long test_trueFiveEighths(long);
-long logicalNeg(long);
-long test_logicalNeg(long);
+int logicalNeg(int);
+int test_logicalNeg(int);
+int howManyBits(int);
+int test_howManyBits(int);
+//float
+unsigned floatScale2(unsigned);
+unsigned test_floatScale2(unsigned);
+int floatFloat2Int(unsigned);
+int test_floatFloat2Int(unsigned);
+unsigned floatPower2(int);
+unsigned test_floatPower2(int);

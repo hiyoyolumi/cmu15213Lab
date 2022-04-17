@@ -11,20 +11,19 @@ tests in btest without violating any of the coding guidelines.
 0. Files:
 *********
 
-Makefile	- Makes btest, fshow, and ishow
-README		- This file
-bits.c		- The file you will be modifying and handing in
-bits.h		- Header file
-btest.c		- The main btest program
-  btest.h	- Used to build btest
-  decl.c	- Used to build btest
+Makefile        - Makes btest, fshow, and ishow
+README          - This file
+bits.c          - The file you will be modifying and handing in
+bits.h          - Header file
+btest.c         - The main btest program
+  btest.h       - Used to build btest
+  decl.c        - Used to build btest
   tests.c       - Used to build btest
   tests-header.c- Used to build btest
-dlc*		- Rule checking compiler binary (data lab compiler)	 
-driver.pl*	- Driver program that uses btest and dlc to autograde bits.c
-Driverhdrs.pm   - Header file for optional "Beat the Prof" contest
-fshow.c		- Utility for examining floating-point representations
-ishow.c		- Utility for examining integer representations
+dlc*            - Rule checking compiler binary (data lab compiler)
+driver.pl*      - Driver program that uses btest and dlc to autograde bits.c
+fshow.c         - Utility for examining floating-point representations
+ishow.c         - Utility for examining integer representations
 
 ***********************************************************
 1. Modifying bits.c and checking it for compliance with dlc
@@ -43,7 +42,7 @@ dlc returns silently if there are no problems with your code.
 Otherwise it prints messages that flag any problems.  Running dlc with
 the -e switch:
 
-    	unix> ./dlc -e bits.c  
+        unix> ./dlc -e bits.c
 
 causes dlc to print counts of the number of operators used by each function.
 
@@ -121,10 +120,10 @@ single decimal or hex number as an argument. To build them type:
 Example usages:
 
     unix> ./ishow 0x27
-    Hex = 0x00000027,	Signed = 39,	Unsigned = 39
+    Hex = 0x00000027,   Signed = 39,    Unsigned = 39
 
     unix> ./ishow 27
-    Hex = 0x0000001b,	Signed = 27,	Unsigned = 27
+    Hex = 0x0000001b,   Signed = 27,    Unsigned = 27
 
     unix> ./fshow 0x15213243
     Floating point value 3.255334057e-26
@@ -135,6 +134,3 @@ Example usages:
     Floating point value 2.131829405e-38
     Bit Representation 0x00e822bb, sign = 0, exponent = 0x01, fraction = 0x6822bb
     Normalized.  +1.8135598898 X 2^(-126)
-
-
-

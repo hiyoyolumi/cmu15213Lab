@@ -1,29 +1,14 @@
 #
 # Makefile that builds btest and other helper programs for the CS:APP data lab
-#
+# 
 CC = gcc
-CFLAGS = -std=gnu99 -m64 -O1 -fwrapv -g -Werror -Wall -Wextra \
-	 -Wstrict-prototypes -Wwrite-strings \
-	 -Wno-unused-parameter -Wno-cast-function-type -Wno-bool-operation
-LDLIBS = -lm
+CFLAGS = -O -Wall -m32
+LIBS = -lm
 
-# Path to LLVM binaries when running on autograder and shark cluster
-ifneq (,$(wildcard /usr/lib/llvm-7/bin/))
-  LLVM_PATH = /usr/lib/llvm-7/bin/
-else
-  ifneq (,$(wildcard /usr/local/depot/llvm-7.0/bin/))
-    LLVM_PATH = /usr/local/depot/llvm-7.0/bin/
-  endif
-endif
-
-# Targets to compile
-FILES = btest fshow ishow
-
-.PHONY: all
-all: $(FILES)
+all: btest fshow ishow
 
 btest: btest.c bits.c decl.c tests.c btest.h bits.h
-	$(CC) $(CFLAGS) -o btest bits.c btest.c decl.c tests.c $(LDLIBS)
+	$(CC) $(CFLAGS) $(LIBS) -o btest bits.c btest.c decl.c tests.c
 
 fshow: fshow.c
 	$(CC) $(CFLAGS) -o fshow fshow.c
@@ -31,21 +16,11 @@ fshow: fshow.c
 ishow: ishow.c
 	$(CC) $(CFLAGS) -o ishow ishow.c
 
-# Forces a recompile. Used by the driver program.
-.PHONY: btestexplicit
+# Forces a recompile. Used by the driver program. 
 btestexplicit:
-	$(CC) $(CFLAGS) -o btest bits.c btest.c decl.c tests.c $(LDLIBS)
+	$(CC) $(CFLAGS) $(LIBS) -o btest bits.c btest.c decl.c tests.c 
 
-.PHONY: clean
 clean:
-	rm -f *~ *.o
-	rm -f $(FILES)
+	rm -f *.o btest fshow ishow *~
 
-# Include rules for submit, format, etc
-FORMAT_FILES = bits.c
-HANDIN_FILES = bits.c
-include helper.mk
 
-# Add check-format dependencies
-submit: | check-format
-$(FILES): | check-format

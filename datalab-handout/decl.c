@@ -1,53 +1,57 @@
-#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
-#define TMin LONG_MIN
-#define TMax LONG_MAX
+#define TMin INT_MIN
+#define TMax INT_MAX
 
-#include "bits.h"
 #include "btest.h"
+#include "bits.h"
 
 test_rec test_set[] = {
+//1
+
+
+
+
+ {"bitXor", (funct_t) bitXor, (funct_t) test_bitXor, 2, "& ~", 14, 1,
+  {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
+ {"tmin", (funct_t) tmin, (funct_t) test_tmin, 0, "! ~ & ^ | + << >>", 4, 1,
+  {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
 //2
- {"copyLSB", (funct_t) copyLSB, (funct_t) test_copyLSB, 1,
+ {"isTmax", (funct_t) isTmax, (funct_t) test_isTmax, 1, "! ~ & ^ | +", 10, 1,
+  {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
+ {"allOddBits", (funct_t) allOddBits, (funct_t) test_allOddBits, 1,
+    "! ~ & ^ | + << >>", 12, 2,
+  {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
+ {"negate", (funct_t) negate, (funct_t) test_negate, 1,
     "! ~ & ^ | + << >>", 5, 2,
   {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
- {"dividePower2", (funct_t) dividePower2, (funct_t) test_dividePower2, 2,
-    "! ~ & ^ | + << >>", 15, 2,
-  {{TMin, TMax},{0,62},{TMin,TMax}}},
- {"distinctNegation", (funct_t) distinctNegation, (funct_t) test_distinctNegation, 1, "! ~ & ^ | +", 5, 2,
-  {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
- {"anyEvenBit", (funct_t) anyEvenBit, (funct_t) test_anyEvenBit, 1,
-    "! ~ & ^ | + << >>", 14, 2,
-  {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
 //3
+ {"isAsciiDigit", (funct_t) isAsciiDigit, (funct_t) test_isAsciiDigit, 1,
+    "! ~ & ^ | + << >>", 15, 3,
+  {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
+ {"conditional", (funct_t) conditional, (funct_t) test_conditional, 3, "! ~ & ^ | << >>", 16, 3,
+  {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
  {"isLessOrEqual", (funct_t) isLessOrEqual, (funct_t) test_isLessOrEqual, 2,
     "! ~ & ^ | + << >>", 24, 3,
   {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
- {"replaceByte", (funct_t) replaceByte, (funct_t) test_replaceByte, 3,
-    "! ~ & ^ | + << >>", 10, 3,
-  {{TMin, TMax},{0,3},{0,255}}},
- {"conditional", (funct_t) conditional, (funct_t) test_conditional, 3, "! ~ & ^ | << >>", 16, 3,
-  {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
- {"bitMask", (funct_t) bitMask, (funct_t) test_bitMask, 2,
-    "! ~ & ^ | + << >>", 16, 3,
-  {{0, 63},{0,63},{TMin,TMax}}},
 //4
-{"isPalindrome", (funct_t) isPalindrome, (funct_t) test_isPalindrome, 1, "! ~ & ^ | + << >>", 70, 4,
-        {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
- {"trueFiveEighths", (funct_t) trueFiveEighths, (funct_t) test_trueFiveEighths, 1,
-    "! ~ & ^ | + << >>", 20, 4,
-  {{TMin,TMax},{TMin,TMax},{TMin,TMax}}},
  {"logicalNeg", (funct_t) logicalNeg, (funct_t) test_logicalNeg, 1,
     "~ & ^ | + << >>", 12, 4,
   {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
-{
-    "", NULL, NULL, 0, "", 0, 0, {
-        {0, 0}, {0, 0}, {
-            0, 0
-        }
-    }
-}
-}
-;
+ {"howManyBits", (funct_t) howManyBits, (funct_t) test_howManyBits, 1, "! ~ & ^ | + << >>", 90, 4,
+  {{TMin, TMax},{TMin,TMax},{TMin,TMax}}},
+//float
+ {"floatScale2", (funct_t) floatScale2, (funct_t) test_floatScale2, 1,
+    "$", 30, 4,
+     {{1, 1},{1,1},{1,1}}},
+ {"floatFloat2Int", (funct_t) floatFloat2Int, (funct_t) test_floatFloat2Int, 1,
+    "$", 30, 4,
+     {{1, 1},{1,1},{1,1}}},
+ {"floatPower2", (funct_t) floatPower2, (funct_t) test_floatPower2, 1,
+    "$", 30, 4,
+     {{1, 1},{1,1},{1,1}}},
+  {"", NULL, NULL, 0, "", 0, 0,
+   {{0, 0},{0,0},{0,0}}}
+};
