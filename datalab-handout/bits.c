@@ -181,7 +181,12 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-  return 2;
+  // construct a mask
+  int mask = 0xAA;
+  mask = (mask << 8) ^ mask;
+  mask = (mask << 16) ^ mask;
+
+  return !((mask & x) ^ mask);
 }
 /* 
  * negate - return -x 
@@ -191,7 +196,7 @@ int allOddBits(int x) {
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+  return (~x + 1);
 }
 //3
 /* 
@@ -204,7 +209,10 @@ int negate(int x) {
  *   Rating: 3
  */
 int isAsciiDigit(int x) {
-  return 2;
+  int flag1 = !((x + (~0x30 + 1)) >> 31);
+  int flag2 = x + (~0x39 + 1);
+  
+  return flag1 & (flag2 >> 31 | !flag2);
 }
 /* 
  * conditional - same as x ? y : z 
