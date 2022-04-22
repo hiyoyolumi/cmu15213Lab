@@ -222,7 +222,7 @@ int isAsciiDigit(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
-  int mask = ~x << 31 >> 31;
+  int mask = !x << 31 >> 31;
   return (mask & z) + ((~mask) & y);
 }
 /* 
