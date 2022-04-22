@@ -233,6 +233,8 @@ int conditional(int x, int y, int z) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
+  int diff = (x >> 31) ^ (y >> 31);
+  
   return 2;
 }
 //4
