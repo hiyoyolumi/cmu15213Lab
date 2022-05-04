@@ -234,8 +234,13 @@ int conditional(int x, int y, int z) {
  */
 int isLessOrEqual(int x, int y) {
   int diff = (x >> 31) ^ (y >> 31);
-  
-  return 2;
+  int part1 = x + ~y + 1;
+  int part2 = !part1;
+  int part3 = !!(part1 >> 31);
+  int flag = part2 | part3;
+  int res = (!diff & flag) | (diff & (!(y>>31)));
+
+  return res;
 }
 //4
 /* 
@@ -247,7 +252,9 @@ int isLessOrEqual(int x, int y) {
  *   Rating: 4 
  */
 int logicalNeg(int x) {
-  return 2;
+  int res = (!!(x >> 31)) ^ (!!(~x + 1));
+
+  return !res;
 }
 /* howManyBits - return the minimum number of bits required to represent x in
  *             two's complement
