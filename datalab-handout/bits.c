@@ -270,18 +270,19 @@ int logicalNeg(int x) {
  */
 int howManyBits(int x) {
   int sign = x >> 31;
+  int b16, b8, b4, b2, b1, b0;
   x = (sign & ~x) | (~sign & x);
-  int b16 = !!(x >> 16) << 4;
+  b16 = !!(x >> 16) << 4;
   x = x >> b16;
-  int b8 = !!(x >> 8) << 3;
+  b8 = !!(x >> 8) << 3;
   x = x >> b8;
-  int b4 = !!(x >> 4) << 2;
+  b4 = !!(x >> 4) << 2;
   x = x >> b4;
-  int b2 = !!(x >> 2) << 1;
+  b2 = !!(x >> 2) << 1;
   x = x >> b2;
-  int b1 = !!(x >> 1);
+  b1 = !!(x >> 1);
   x = x >> b1;
-  int b0 = x;
+  b0 = x;
   
   return b16 + b8 + b4 + b2 + b1 + b0 + 1;
 }
@@ -298,7 +299,21 @@ int howManyBits(int x) {
  *   Rating: 4
  */
 unsigned floatScale2(unsigned uf) {
-  return 2;
+  unsigned exp = uf >> 23;
+  unsigned ans;
+  if (!((exp & 0xFF) ^ 0xFF)) {
+    return uf;
+  }
+  if (!(exp & 0xFF)) {
+    unsigned sign = uf >> 31 << 31;
+    return (uf << 1) | sign;
+  }
+  ans = (1 << 23) + uf;
+  if (!(((ans >> 23) & 0xFF) ^ 0xFF)) {
+    return ans >> 23 << 23;
+  } else {
+    return ans;
+  }
 }
 /* 
  * floatFloat2Int - Return bit-level equivalent of expression (int) f
@@ -313,7 +328,33 @@ unsigned floatScale2(unsigned uf) {
  *   Rating: 4
  */
 int floatFloat2Int(unsigned uf) {
-  return 2;
+  int E = ((uf >> 23) & 0xFF) - 127;
+  unsigned sign = uf >> 31;
+  unsigned frac = (uf & 0x7FFFFF) | 0x800000;
+  if (E < 0) {
+    return 0;
+  }
+  if (E > 31) {
+    return 0x80000000u;
+  }
+  if (E > 23) {
+    frac = frac << (E - 23);
+  } else {
+    frac = frac >> (23 - E);
+  }
+  if (sign) {
+    if (frac >> 31) {
+      return 0x80000000u;
+    } else {
+      return ~frac + 1;
+    }
+  } else {
+    if (frac >> 31) {
+      return 0x80000000;
+    } else {
+      return frac;
+    }
+  }
 }
 /* 
  * floatPower2 - Return bit-level equivalent of the expression 2.0^x
@@ -329,5 +370,14 @@ int floatFloat2Int(unsigned uf) {
  *   Rating: 4
  */
 unsigned floatPower2(int x) {
-    return 2;
+  if (x < -149) {
+    return 0;
+  }
+  if (x >= -149 && x < -126) {
+    return 1 << (149 + x);
+  }
+  if (x >= -126 && x <= 127) {
+    return (x + 127) << 23;
+  }
+  return 0xFF << 23;
 }
